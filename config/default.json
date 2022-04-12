@@ -1,0 +1,5 @@
+{
+    "port" : "5000",
+    "mongoURI" : "mongodb+srv://surovjeniya:19953101qw@cluster1.zxkxd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "jwtSecret" : "surovjeniya jwt"
+}
