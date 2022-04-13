@@ -3,12 +3,14 @@ const mongoose = require('mongoose')
 const config = require('config')
 const bp = require('body-parser')
 const authRoute = require('./routes/authRoute')
+const todosRoute  = require('./routes/todosRoute')
 
 const app = express()
 
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 app.use('/api/auth',authRoute)
+app.use('/api/',todosRoute)
 
 
 const mongo = "mongodb+srv://surovjeniya:19953101qw@cluster1.zxkxd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"

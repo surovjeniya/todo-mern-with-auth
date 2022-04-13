@@ -1,0 +1,25 @@
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    &__buttons {
+        display: flex;
+        align-items: center;
+    }
+    &__title {
+        &.important {
+            font-weight: 700;
+        }
+        &.done {
+            text-decoration: line-through;
+        }
+    }
+    .btn {
+        cursor: pointer;
+        transition: .3s all ease;
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}

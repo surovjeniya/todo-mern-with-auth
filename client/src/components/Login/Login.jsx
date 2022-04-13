@@ -1,8 +1,12 @@
 import axios from 'axios'
-import React,{Fragment,useState} from 'react'
+import React,{useState,useContext} from 'react'
+import {AuthContext} from '../../context/AuthContext'
 import {Link} from 'react-router-dom'
+import './Login.scss'
 
 const Login = () => {
+
+    const {login} = useContext(AuthContext)
 
     const [loginState,setLoginState] = useState({
         email:'',
@@ -22,18 +26,23 @@ const Login = () => {
 
     const loginHandler = async () => {
         try {
-            await axios.post('/api/auth/login',{...loginState},{
+            const res = await axios.post('/api/auth/login',{...loginState},{
                 headers:{
                     'Content-Type': 'application/json'
                 }
-            }).then(res => console.log(res))
+            })
+            if(res.statusText === 'OK') {
+                console.log(res.data)
+                login(res.data.token,res.data.userId)
+            }
+
         }catch(e) {
             console.log(e.message)
         }
     }
 
     return(
-        <Fragment>
+        <div className='login-page container'>
         <h3 className="auth-page__title">Authorization</h3>
         <form 
             onSubmit={onSubmitHanlder}
@@ -65,7 +74,7 @@ const Login = () => {
                 <Link to='/registration' className='btn-outline havent-link'>Havent't account?</Link>
             </div>
         </form>
-    </Fragment>
+        </div>
     )
 }
 

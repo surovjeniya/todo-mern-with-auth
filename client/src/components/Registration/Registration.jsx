@@ -1,10 +1,15 @@
 import React,{Fragment,useState} from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
+import './Registration.scss'
+import {useNavigate} from 'react-router-dom'
+
+
+
 
 const Registration = () => {
 
-
+    const navigate = useNavigate()
     const [registrationState,setRegistrationState] = useState({
         email:'',
         password:'',
@@ -13,7 +18,7 @@ const Registration = () => {
 
     const registerHandler = async () => {
         try {
-            await axios.post('/api/auth/registration',{
+            const res = await axios.post('/api/auth/registration',{
                 ...registrationState
             },
             {
@@ -21,7 +26,11 @@ const Registration = () => {
                     'Content-Type': 'application/json'
                 }
             }
-            ).then(res => console.log(res))
+            )
+            if(res.statusText === 'Created') {
+                return navigate('/login')
+            }
+            console.log(res)
         } catch(e) {
             console.log(e.message)
         }
@@ -41,7 +50,7 @@ const Registration = () => {
     
 
     return (
-        <Fragment>
+        <div className="register-page">
             <h3 className="auth-page__title">Registration</h3>
             <form
                 onSubmit={onSubmitHanlder}
@@ -81,7 +90,7 @@ const Registration = () => {
                     <Link to='/login' className='btn-outline havent-link'>You have account?</Link>
                 </div>
             </form>
-        </Fragment>
+            </div>
     )
 }
 export default Registration
